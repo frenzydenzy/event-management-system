@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../utils/api";
 import { useNavigate } from "react-router-dom";
 
 export default function UserOrderStatus() {
@@ -8,9 +8,7 @@ export default function UserOrderStatus() {
   const [orders, setOrders] = useState([]);
 
   const fetchOrders = async () => {
-    const res = await axios.get("http://localhost:5000/orders/my", {
-      headers: { Authorization: token },
-    });
+    const res = await api.get("/orders/my");
     setOrders(res.data);
   };
 

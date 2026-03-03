@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../utils/api";
 import { useParams, useNavigate } from "react-router-dom";
 
 export default function UserVendors() {
@@ -8,8 +8,8 @@ export default function UserVendors() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/user/vendors/${category}`)
+    api
+      .get(`/user/vendors/${category}`)
       .then((res) => setVendors(res.data));
   }, [category]);
 

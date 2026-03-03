@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../utils/api";
 import { useNavigate } from "react-router-dom";
 
 export default function VendorStatus() {
@@ -8,9 +8,7 @@ export default function VendorStatus() {
   const [orders, setOrders] = useState([]);
 
   const fetchOrders = async () => {
-    const res = await axios.get("http://localhost:5000/orders/vendor", {
-      headers: { Authorization: token },
-    });
+    const res = await api.get("/orders/vendor");
     setOrders(res.data);
   };
 
@@ -19,18 +17,12 @@ export default function VendorStatus() {
   }, []);
 
   const updateStatus = async (id, status) => {
-    await axios.put(
-      `http://localhost:5000/orders/${id}`,
-      { status },
-      { headers: { Authorization: token } }
-    );
+    await api.put(`/orders/${id}`, { status });
     fetchOrders();
   };
 
   const deleteOrder = async (id) => {
-    await axios.delete(`http://localhost:5000/orders/${id}`, {
-      headers: { Authorization: token },
-    });
+    await api.delete(`/orders/${id}`);
     fetchOrders();
   };
 

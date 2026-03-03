@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import api from "../utils/api";
 
 export default function UserCheckout() {
   const token = localStorage.getItem("token");
@@ -19,15 +19,16 @@ export default function UserCheckout() {
   const [total, setTotal] = useState(0);
 
   const placeOrder = async () => {
-   await axios.post(
-  "http://localhost:5000/orders",
-  form,
-  { headers: { Authorization: token } }
-);
-
-// Show popup manually
-setTotal(500); // demo total or calculate
-setShowPopup(true);
+    try {
+      const res = await api.post("/orders", form);
+      // backend could return order details including total price
+      const order = res.data;
+      setTotal(order.items?.reduce((s, i) => s + i.price, 0) || 0);
+      setShowPopup(true);
+    } catch (err) {
+      console.error(err);
+      alert("Unable to place order");
+    }
   };
 
   return (

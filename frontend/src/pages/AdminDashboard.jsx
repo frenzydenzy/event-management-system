@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../utils/api";
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
@@ -18,26 +18,20 @@ export default function AdminDashboard() {
 
   // FETCH USERS
   const fetchUsers = async () => {
-    const res = await axios.get("http://localhost:5000/admin/users", {
-      headers: { Authorization: token },
-    });
+    const res = await api.get("/admin/users");
     setUsers(res.data);
     setShowUsers(true);
   };
 
   // FETCH VENDORS
   const fetchVendors = async () => {
-    const res = await axios.get("http://localhost:5000/admin/vendors", {
-      headers: { Authorization: token },
-    });
+    const res = await api.get("/admin/vendors");
     setVendors(res.data);
     setShowVendors(true);
   };
 
   const deleteUser = async (id) => {
-    await axios.delete(`http://localhost:5000/admin/user/${id}`, {
-      headers: { Authorization: token },
-    });
+    await api.delete(`/admin/user/${id}`);
     fetchUsers();
   };
 

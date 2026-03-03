@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import api from "../utils/api";
 
 export default function SignupVendor() {
   const [form, setForm] = useState({
@@ -10,7 +10,7 @@ export default function SignupVendor() {
   });
 
   const handleSignup = async () => {
-    await axios.post("http://localhost:5000/auth/register", {
+    await api.post("/auth/register", {
       ...form,
       role: "vendor",
     });

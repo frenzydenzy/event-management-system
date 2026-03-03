@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
+import api from "../utils/api";
 
 export default function AdminMaintain() {
   const navigate = useNavigate();
@@ -25,24 +25,18 @@ export default function AdminMaintain() {
 
   /* ================= FETCH DATA ================= */
   const fetchVendors = async () => {
-    const res = await axios.get("http://localhost:5000/admin/vendors", {
-      headers: { Authorization: token },
-    });
+    const res = await api.get("/admin/vendors");
     setVendors(res.data);
   };
 
   const fetchUsers = async () => {
-    const res = await axios.get("http://localhost:5000/admin/users", {
-      headers: { Authorization: token },
-    });
+    const res = await api.get("/admin/users");
     setUsers(res.data);
     setShowUsers(true);
   };
 
   const fetchMemberships = async () => {
-    const res = await axios.get("http://localhost:5000/admin/membership", {
-      headers: { Authorization: token },
-    });
+    const res = await api.get("/admin/membership");
     setMemberships(res.data);
     setShowUpdate(true);
   };
@@ -54,30 +48,20 @@ export default function AdminMaintain() {
   };
 
   const addMembership = async () => {
-    await axios.post(
-      "http://localhost:5000/admin/membership/add",
-      { vendorId: selectedVendor, duration },
-      { headers: { Authorization: token } }
-    );
+    await api.post("/admin/membership/add", { vendorId: selectedVendor, duration });
     alert("Membership added");
     setShowAdd(false);
   };
 
   const updateMembership = async (id) => {
-    await axios.put(
-      `http://localhost:5000/admin/membership/${id}`,
-      { duration },
-      { headers: { Authorization: token } }
-    );
+    await api.put(`/admin/membership/${id}`, { duration });
     alert("Updated");
     setShowUpdate(false);
   };
 
   /* ================= DELETE USER ================= */
   const deleteUser = async (id) => {
-    await axios.delete(`http://localhost:5000/admin/user/${id}`, {
-      headers: { Authorization: token },
-    });
+    await api.delete(`/admin/user/${id}`);
     fetchUsers();
   };
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../utils/api";
 import { useNavigate } from "react-router-dom";
 
 export default function VendorRequests() {
@@ -8,9 +8,7 @@ export default function VendorRequests() {
   const [requests, setRequests] = useState([]);
 
   const fetchRequests = async () => {
-    const res = await axios.get("http://localhost:5000/requests/all", {
-      headers: { Authorization: token },
-    });
+    const res = await api.get("/requests/all");
     setRequests(res.data);
   };
 

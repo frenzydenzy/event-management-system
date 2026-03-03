@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../utils/api";
 import { useNavigate } from "react-router-dom";
 export default function VendorAddProduct() {
   const token = localStorage.getItem("token");
@@ -9,9 +9,7 @@ export default function VendorAddProduct() {
   const [form, setForm] = useState({ name: "", price: "", image: "" });
 
   const fetchProducts = async () => {
-    const res = await axios.get("http://localhost:5000/products/my", {
-      headers: { Authorization: token },
-    });
+    const res = await api.get("/products/my");
     setProducts(res.data);
   };
 
@@ -20,16 +18,12 @@ export default function VendorAddProduct() {
   }, []);
 
   const addProduct = async () => {
-    await axios.post("http://localhost:5000/products", form, {
-      headers: { Authorization: token },
-    });
+    await api.post("/products", form);
     fetchProducts();
   };
 
   const deleteProduct = async (id) => {
-    await axios.delete(`http://localhost:5000/products/${id}`, {
-      headers: { Authorization: token },
-    });
+    await api.delete(`/products/${id}`);
     fetchProducts();
   };
 

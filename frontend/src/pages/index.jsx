@@ -4,7 +4,7 @@ export default function Index() {
   const navigate = useNavigate();
 
   return (
-    <div style={styles.container}>
+    <div className="container" style={styles.container}>
       <h1>Welcome to Event Management System</h1>
 
       <p style={styles.desc}>
@@ -12,15 +12,15 @@ export default function Index() {
       </p>
 
       <div>
-        <button style={styles.btn} onClick={() => navigate("/")}>
+        <button className="btn" onClick={() => navigate("/")}>
           Login
         </button>
 
-        <button style={styles.btn} onClick={() => navigate("/signup-user")}>
+        <button className="btn" onClick={() => navigate("/signup-user")}>
           Signup as User
         </button>
 
-        <button style={styles.btn} onClick={() => navigate("/signup-vendor")}>
+        <button className="btn" onClick={() => navigate("/signup-vendor")}>
           Signup as Vendor
         </button>
       </div>

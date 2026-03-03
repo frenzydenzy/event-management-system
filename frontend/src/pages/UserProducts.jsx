@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../utils/api";
 import { useParams } from "react-router-dom";
 
 export default function UserProducts() {
@@ -9,14 +9,14 @@ export default function UserProducts() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/user/vendor-products/${vendorId}`)
+    api
+      .get(`/user/vendor-products/${vendorId}`)
       .then((res) => setProducts(res.data));
   }, [vendorId]);
 
   const addToCart = async (product) => {
-    await axios.post(
-      "http://localhost:5000/orders",
+    await api.post(
+      "/orders",
       {
         vendorId,
         items: [product],

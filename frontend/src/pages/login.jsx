@@ -1,6 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import api from "../utils/api";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -9,24 +9,28 @@ export default function Login() {
 
   const handleLogin = async () => {
     try {
-      const res = await axios.post("http://localhost:5000/auth/login", {
+      const res = await api.post("/auth/login", {
         email,
         password,
       });
 
-      localStorage.setItem("token", res.data.token);
+      const { token, role, name } = res.data;
+      localStorage.setItem("token", token);
+      if (role) localStorage.setItem("role", role);
+      if (name) localStorage.setItem("name", name);
 
       // ROLE BASED REDIRECT
-      if (res.data.role === "admin") navigate("/admin");
-      else if (res.data.role === "vendor") navigate("/vendor");
+      if (role === "admin") navigate("/admin");
+      else if (role === "vendor") navigate("/vendor");
       else navigate("/user");
     } catch (err) {
-      alert("Invalid credentials");
+      console.error(err);
+      alert(err.response?.data?.message || "Invalid credentials");
     }
   };
 
   return (
-    <div style={styles.container}>
+    <div className="container">
       <div style={styles.box}>
         <h2 style={styles.title}>Event Management System</h2>
 
@@ -50,10 +54,10 @@ export default function Login() {
         </div>
 
         <div style={styles.buttonRow}>
-          <button style={styles.cancel} onClick={() => navigate("/index")}>
+<button className="btn" onClick={() => navigate("/index") }>
             Cancel
           </button>
-          <button style={styles.login} onClick={handleLogin}>
+          <button className="btn" onClick={handleLogin}>
             Login
           </button>
         </div>

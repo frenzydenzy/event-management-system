@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import api from "../utils/api";
 import { useNavigate } from "react-router-dom";
 
 export default function UserRequests() {
@@ -10,8 +10,8 @@ export default function UserRequests() {
   const [description, setDescription] = useState("");
 
   const sendRequest = async () => {
-    await axios.post(
-      "http://localhost:5000/requests",
+    await api.post(
+      "/requests",
       { itemName, description },
       { headers: { Authorization: token } }
     );

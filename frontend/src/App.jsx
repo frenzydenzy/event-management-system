@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
 import Login from "./pages/login";
 import Index from "./pages/index";
 import SignupUser from "./pages/SignupUser";
@@ -21,7 +22,9 @@ import UserOrderStatus from "./pages/UserOrderStatus";
 
 export default function App() {
   return (
-    <Routes>
+    <>
+      <Navbar />
+      <Routes>
       <Route path="/" element={<Login />} />
       <Route path="/index" element={<Index />} />
 
@@ -42,5 +45,6 @@ export default function App() {
       <Route path="/user/request-item" element={<UserRequests />} />
       <Route path="/user/order-status" element={<UserOrderStatus />} />
     </Routes>
+    </>
   );
 }

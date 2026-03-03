@@ -11,7 +11,7 @@ export default function UserDashboard() {
   };
 
   return (
-    <div style={styles.container}>
+    <div className="container">
       <h2 style={styles.header}>WELCOME USER</h2>
 
       {/* CATEGORY DROPDOWN */}
@@ -30,14 +30,14 @@ export default function UserDashboard() {
 
       {/* MENU BUTTONS */}
       <div style={styles.menu}>
-        <button onClick={() => navigate(`/user/vendors/${category}`)}>
+        <button className="btn" onClick={() => navigate(`/user/vendors/${category}`)}>
           Vendor
         </button>
-        <button onClick={() => navigate("/user/cart")}>Cart</button>
-        <button onClick={() => navigate("/user/request-item")}>
+        <button className="btn" onClick={() => navigate("/user/cart")}>Cart</button>
+        <button className="btn" onClick={() => navigate("/user/request-item")}>
         Guest List
         </button>
-        <button onClick={() => navigate("/user/order-status")}>
+        <button className="btn" onClick={() => navigate("/user/order-status")}>
         Order Status
         </button>
       </div>
