@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import jwt_decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import api from "../utils/api";
 
 function Navbar() {
@@ -13,7 +13,7 @@ function Navbar() {
     const token = localStorage.getItem("token");
     if (token) {
       try {
-        const payload = jwt_decode(token);
+        const payload = jwtDecode(token);
         setRole(payload.role);
         setName(payload.name || "");
       } catch (e) {
