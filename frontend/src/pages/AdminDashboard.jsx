@@ -4,7 +4,6 @@ import api from "../utils/api";
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
 
   const [showUsers, setShowUsers] = useState(false);
   const [showVendors, setShowVendors] = useState(false);

@@ -3,7 +3,6 @@ import api from "../utils/api";
 import { useNavigate } from "react-router-dom";
 
 export default function UserRequests() {
-  const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
   const [itemName, setItemName] = useState("");

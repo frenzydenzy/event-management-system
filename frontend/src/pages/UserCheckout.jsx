@@ -2,7 +2,6 @@ import { useState } from "react";
 import api from "../utils/api";
 
 export default function UserCheckout() {
-  const token = localStorage.getItem("token");
 
   const [form, setForm] = useState({
     name: "",

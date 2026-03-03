@@ -4,7 +4,6 @@ import api from "../utils/api";
 
 export default function AdminMaintain() {
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
 
   const [vendors, setVendors] = useState([]);
   const [users, setUsers] = useState([]);

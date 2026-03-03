@@ -3,7 +3,6 @@ import api from "../utils/api";
 import { useNavigate } from "react-router-dom";
 
 export default function VendorStatus() {
-  const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
 

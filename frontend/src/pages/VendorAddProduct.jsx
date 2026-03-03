@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import api from "../utils/api";
 import { useNavigate } from "react-router-dom";
 export default function VendorAddProduct() {
-  const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
   const [products, setProducts] = useState([]);

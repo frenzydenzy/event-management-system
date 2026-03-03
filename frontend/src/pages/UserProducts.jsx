@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 
 export default function UserProducts() {
   const { vendorId } = useParams();
-  const token = localStorage.getItem("token");
 
   const [products, setProducts] = useState([]);
 
@@ -15,15 +14,11 @@ export default function UserProducts() {
   }, [vendorId]);
 
   const addToCart = async (product) => {
-    await api.post(
-      "/orders",
-      {
-        vendorId,
-        items: [product],
-        address: "Test Address",
-      },
-      { headers: { Authorization: token } }
-    );
+    await api.post("/orders", {
+      vendorId,
+      items: [product],
+      address: "Test Address",
+    });
     alert("Added to cart / order placed");
   };
 
