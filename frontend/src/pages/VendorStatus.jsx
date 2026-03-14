@@ -50,8 +50,8 @@ export default function VendorStatus() {
 
       {orders.map((o) => (
         <div key={o._id} style={styles.row}>
-          <div>{o.customerName || "User"}</div>
-          <div>{o.email || "-"}</div>
+          <div>{o.userId?.name || "User"}</div>
+          <div>{o.userId?.email || "-"}</div>
           <div>{o.address}</div>
           <div>{o.status}</div>
           <button onClick={() => updateStatus(o._id, "Shipped")}>

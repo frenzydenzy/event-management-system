@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import api from "../utils/api";
 import { useNavigate } from "react-router-dom";
+
 export default function VendorAddProduct() {
   const navigate = useNavigate();
 
   const [products, setProducts] = useState([]);
-  const [form, setForm] = useState({ name: "", price: "", image: "" });
+  const [form, setForm] = useState({ name: "", price: "" });
+  const [image, setImage] = useState(null);
+  const [preview, setPreview] = useState(null);
 
   const fetchProducts = async () => {
     const res = await api.get("/products/my");
@@ -17,7 +20,22 @@ export default function VendorAddProduct() {
   }, []);
 
   const addProduct = async () => {
-    await api.post("/products", form);
+    const formData = new FormData();
+
+    formData.append("name", form.name);
+    formData.append("price", form.price);
+    formData.append("image", image);
+
+    await api.post("/products/add", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    setForm({ name: "", price: "" });
+    setImage(null);
+    setPreview(null);
+
     fetchProducts();
   };
 
@@ -32,8 +50,15 @@ export default function VendorAddProduct() {
       <div style={styles.header}>
         Welcome Vendor
         <div>
-          <button onClick={() => navigate("/vendor/status")}>Product Status</button>
-          <button onClick={() => navigate("/vendor/requests")} style={styles.topBtn}>Request Item</button>
+          <button onClick={() => navigate("/vendor/status")}>
+            Product Status
+          </button>
+          <button
+            onClick={() => navigate("/vendor/requests")}
+            style={styles.topBtn}
+          >
+            Request Item
+          </button>
           <button style={styles.topBtn}>View Product</button>
         </div>
       </div>
@@ -43,16 +68,40 @@ export default function VendorAddProduct() {
         <div style={styles.form}>
           <input
             placeholder="Product Name"
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
+            value={form.name}
+            onChange={(e) =>
+              setForm({ ...form, name: e.target.value })
+            }
           />
+
           <input
             placeholder="Product Price"
-            onChange={(e) => setForm({ ...form, price: e.target.value })}
+            value={form.price}
+            onChange={(e) =>
+              setForm({ ...form, price: e.target.value })
+            }
           />
+
+          {/* IMAGE UPLOAD */}
           <input
-            placeholder="Product Image"
-            onChange={(e) => setForm({ ...form, image: e.target.value })}
+            type="file"
+            accept="image/*"
+            onChange={(e) => {
+              const file = e.target.files[0];
+              setImage(file);
+              setPreview(URL.createObjectURL(file));
+            }}
           />
+
+          {/* IMAGE PREVIEW */}
+          {preview && (
+            <img
+              src={preview}
+              alt="preview"
+              style={{ width: "100%", marginTop: 10 }}
+            />
+          )}
+
           <button onClick={addProduct}>Add The Product</button>
         </div>
 
@@ -61,6 +110,7 @@ export default function VendorAddProduct() {
           <div style={styles.headerRow}>
             <div>Product Name</div>
             <div>Price</div>
+            <div>Image</div>
             <div>Action</div>
           </div>
 
@@ -68,8 +118,21 @@ export default function VendorAddProduct() {
             <div key={p._id} style={styles.row}>
               <div>{p.name}</div>
               <div>₹{p.price}</div>
+
               <div>
-                <button onClick={() => deleteProduct(p._id)}>Delete</button>
+                {p.image && (
+                  <img
+                    src={`http://localhost:5000${p.image}`}
+                    alt={p.name}
+                    style={{ width: 60 }}
+                  />
+                )}
+              </div>
+
+              <div>
+                <button onClick={() => deleteProduct(p._id)}>
+                  Delete
+                </button>
               </div>
             </div>
           ))}
@@ -81,6 +144,7 @@ export default function VendorAddProduct() {
 
 const styles = {
   container: { background: "#d9d9d9", minHeight: "100vh" },
+
   header: {
     background: "#4c78c9",
     color: "white",
@@ -88,8 +152,11 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
   },
+
   topBtn: { marginLeft: 10, background: "white" },
+
   body: { display: "flex", padding: 30 },
+
   form: {
     background: "#4c78c9",
     padding: 20,
@@ -98,7 +165,9 @@ const styles = {
     flexDirection: "column",
     gap: 10,
   },
+
   table: { marginLeft: 40, flex: 1 },
+
   headerRow: {
     display: "flex",
     justifyContent: "space-between",
@@ -106,11 +175,13 @@ const styles = {
     color: "white",
     padding: 10,
   },
+
   row: {
     display: "flex",
     justifyContent: "space-between",
     background: "#7ea0db",
     padding: 10,
     marginTop: 5,
+    alignItems: "center",
   },
 };

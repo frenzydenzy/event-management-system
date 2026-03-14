@@ -42,33 +42,33 @@ function Navbar() {
     <nav className="navbar">
       <div className="navbar-left">
         <Link to="/index" className="nav-logo">
-          Event‑Mgmt
+          🛍️ EventMart
         </Link>
         {role === "user" && (
           <>
             <Link to="/user">Dashboard</Link>
             <Link to="/user/cart">
-              Cart {cartCount > 0 && <span>({cartCount})</span>}
+              🛒 Cart {cartCount > 0 && <span className="cart-badge">({cartCount})</span>}
             </Link>
           </>
         )}
         {role === "vendor" && (
           <>
             <Link to="/vendor">Dashboard</Link>
-            <Link to="/vendor/status">Orders</Link>
+            <Link to="/vendor/status">📦 Orders</Link>
           </>
         )}
         {role === "admin" && (
           <>
             <Link to="/admin">Dashboard</Link>
-            <Link to="/admin-maintain">Maintenance</Link>
+            <Link to="/admin-maintain">⚙️ Maintenance</Link>
           </>
         )}
       </div>
       <div className="navbar-right">
-        {role && <span className="navbar-user">{name}</span>}
+        {role && <span className="navbar-user">👤 {name}</span>}
         {role && (
-          <button className="nav-logout" onClick={logout}>
+          <button className="btn btn-secondary nav-logout" onClick={logout}>
             Logout
           </button>
         )}

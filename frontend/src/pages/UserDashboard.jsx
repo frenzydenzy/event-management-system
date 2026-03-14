@@ -11,50 +11,70 @@ export default function UserDashboard() {
   };
 
   return (
-    <div className="container">
-      <h2 style={styles.header}>WELCOME USER</h2>
+    <div className="container" style={{ padding: '2rem' }}>
+      <div className="card" style={{ marginBottom: '2rem' }}>
+        <h2 style={{ color: 'var(--primary)', marginBottom: '1rem' }}>👋 Welcome to Your Dashboard</h2>
+        <p style={{ color: 'var(--secondary)' }}>Browse vendors, manage your cart, and track your orders</p>
+      </div>
 
-      {/* CATEGORY DROPDOWN */}
-      <div style={styles.dropdownBox}>
-        <h4>Drop Down</h4>
+      {/* CATEGORY SELECTION */}
+      <div className="card" style={{ marginBottom: '2rem' }}>
+        <h4 style={{ marginBottom: '1rem' }}>Choose Service Category</h4>
         <select
-          style={styles.select}
+          className="input"
+          style={{ maxWidth: '300px' }}
           onChange={(e) => setCategory(e.target.value)}
+          value={category}
         >
-          <option value="catering">Catering</option>
-          <option value="florist">Florist</option>
-          <option value="decoration">Decoration</option>
-          <option value="lighting">Lighting</option>
+          <option value="catering">🍽️ Catering</option>
+          <option value="florist">🌸 Florist</option>
+          <option value="decoration">🎨 Decoration</option>
+          <option value="lighting">💡 Lighting</option>
         </select>
       </div>
 
-      {/* MENU BUTTONS */}
-      <div style={styles.menu}>
-        <button className="btn" onClick={() => navigate(`/user/vendors/${category}`)}>
-          Vendor
-        </button>
-        <button className="btn" onClick={() => navigate("/user/cart")}>Cart</button>
-        <button className="btn" onClick={() => navigate("/user/request-item")}>
-        Guest List
-        </button>
-        <button className="btn" onClick={() => navigate("/user/order-status")}>
-        Order Status
-        </button>
+      {/* QUICK ACTIONS */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '2rem' }}>
+        <div className="card">
+          <h3>🏪 Browse Vendors</h3>
+          <p>Find the perfect vendors for your event</p>
+          <button className="btn" onClick={() => navigate(`/user/vendors/${category}`)}>
+            View Vendors
+          </button>
+        </div>
+        <div className="card">
+          <h3>🛒 Your Cart</h3>
+          <p>Review items in your shopping cart</p>
+          <button className="btn" onClick={() => navigate("/user/cart")}>View Cart</button>
+        </div>
+        <div className="card">
+          <h3>📋 Guest List</h3>
+          <p>Manage your event guest list</p>
+          <button className="btn" onClick={() => navigate("/user/request-item")}>
+            Manage Guests
+          </button>
+        </div>
+        <div className="card">
+          <h3>📦 Order Status</h3>
+          <p>Track your order progress</p>
+          <button className="btn" onClick={() => navigate("/user/order-status")}>
+            View Orders
+          </button>
+        </div>
       </div>
 
-      <button style={styles.logout} onClick={logout}>
-        LogOut
-      </button>
+      <div style={{ textAlign: 'center' }}>
+        <button className="btn btn-secondary" onClick={logout}>
+          Sign Out
+        </button>
+      </div>
     </div>
   );
 }
 
 const styles = {
-  container: { padding: 40, background: "#ddd", minHeight: "100vh" },
-  header: {
-    background: "#4c78c9",
-    color: "white",
-    padding: 10,
+  // Styles moved to CSS classes
+};
     textAlign: "center",
   },
   dropdownBox: { marginTop: 20 },

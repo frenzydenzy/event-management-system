@@ -31,35 +31,42 @@ export default function Login() {
 
   return (
     <div className="container">
-      <div style={styles.box}>
-        <h2 style={styles.title}>Event Management System</h2>
+      <div className="card" style={{ maxWidth: '400px', width: '100%' }}>
+        <h2 style={{ marginBottom: '2rem', color: 'var(--primary)' }}>Welcome to EventMart</h2>
+        <p style={{ marginBottom: '1.5rem', textAlign: 'center' }}>Sign in to your account</p>
 
-        <div style={styles.formRow}>
-          <div style={styles.label}>User Id</div>
+        <div style={{ marginBottom: '1rem' }}>
+          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Email</label>
           <input
-            style={styles.input}
-            placeholder="Enter email"
+            className="input"
+            placeholder="Enter your email"
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
 
-        <div style={styles.formRow}>
-          <div style={styles.label}>Password</div>
+        <div style={{ marginBottom: '1.5rem' }}>
+          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Password</label>
           <input
             type="password"
-            style={styles.input}
-            placeholder="Enter password"
+            className="input"
+            placeholder="Enter your password"
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
 
-        <div style={styles.buttonRow}>
-<button className="btn" onClick={() => navigate("/index") }>
+        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+          <button className="btn btn-secondary" onClick={() => navigate("/index")}>
             Cancel
           </button>
           <button className="btn" onClick={handleLogin}>
-            Login
+            Sign In
           </button>
+        </div>
+
+        <div style={{ textAlign: 'center', marginTop: '1.5rem' }}>
+          <p>Don't have an account? <a href="#" onClick={() => navigate("/signup-user")} style={{ color: 'var(--primary)' }}>Sign up as User</a> | <a href="#" onClick={() => navigate("/signup-vendor")} style={{ color: 'var(--primary)' }}>Sign up as Vendor</a></p>
         </div>
       </div>
     </div>
@@ -67,17 +74,8 @@ export default function Login() {
 }
 
 const styles = {
-  container: {
-    height: "100vh",
-    background: "#d9d9d9",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  box: {
-    width: 600,
-    background: "#e5e5e5",
-    padding: 30,
+  // Removed old styles, using CSS classes now
+};
     borderRadius: 6,
     boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
   },

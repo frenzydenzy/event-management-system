@@ -9,27 +9,49 @@ export default function VendorDashboard() {
   };
 
   return (
-    <div style={styles.container}>
-      {/* HEADER */}
-      <div style={styles.header}>
-        <div style={styles.title}>Welcome Vendor</div>
+    <div className="container" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '2rem' }}>
+      <div className="card" style={{ marginBottom: '2rem', textAlign: 'center' }}>
+        <h2 style={{ color: 'var(--primary)', marginBottom: '1rem' }}>🏪 Vendor Dashboard</h2>
+        <p style={{ color: 'var(--secondary)' }}>Manage your products and track orders</p>
       </div>
 
-      {/* MENU BUTTONS */}
-      <div style={styles.menu}>
-        <button style={styles.btn}>Your Item</button>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', maxWidth: '800px' }}>
+        <div className="card">
+          <h3>📦 Your Products</h3>
+          <p>View and manage your product catalog</p>
+          <button className="btn" onClick={() => navigate("/vendor/products")}>
+            Manage Items
+          </button>
+        </div>
 
-        <button
-          style={styles.btn}
-          onClick={() => navigate("/vendor/add-product")}
-        >
-          Add New Item
-        </button>
+        <div className="card">
+          <h3>➕ Add Product</h3>
+          <p>List new items for sale</p>
+          <button className="btn" onClick={() => navigate("/vendor/add-product")}>
+            Add Item
+          </button>
+        </div>
 
-        <button style={styles.btn}>Transaction</button>
+        <div className="card">
+          <h3>📋 Orders</h3>
+          <p>View and update customer orders</p>
+          <button className="btn" onClick={() => navigate("/vendor/status")}>
+            View Orders
+          </button>
+        </div>
 
-        <button style={styles.btn} onClick={logout}>
-          LogOut
+        <div className="card">
+          <h3>📊 Analytics</h3>
+          <p>Coming soon - sales insights</p>
+          <button className="btn btn-secondary" disabled>
+            Coming Soon
+          </button>
+        </div>
+      </div>
+
+      <div style={{ marginTop: '2rem' }}>
+        <button className="btn btn-secondary" onClick={logout}>
+          Sign Out
         </button>
       </div>
     </div>
@@ -37,25 +59,8 @@ export default function VendorDashboard() {
 }
 
 const styles = {
-  container: {
-    minHeight: "100vh",
-    background: "#4c78c9",
-    paddingTop: 60,
-    textAlign: "center",
-  },
-  header: {
-    background: "#ccc",
-    width: "70%",
-    margin: "auto",
-    padding: 20,
-    borderRadius: 6,
-  },
-  title: { fontSize: 20 },
-  menu: {
-    marginTop: 60,
-    display: "flex",
-    justifyContent: "center",
-    gap: 20,
+  // Styles moved to CSS classes and inline styles
+};
   },
   btn: {
     padding: "10px 20px",

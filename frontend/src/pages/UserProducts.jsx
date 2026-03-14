@@ -14,24 +14,26 @@ export default function UserProducts() {
   }, [vendorId]);
 
   const addToCart = async (product) => {
-    await api.post("/orders", {
-      vendorId,
-      items: [product],
-      address: "Test Address",
+    await api.post("/cart/add", {
+      productId: product._id,
+      name: product.name,
+      price: product.price,
+      image: product.image,
     });
-    alert("Added to cart / order placed");
+    alert("Added to cart");
   };
 
   return (
-    <div style={styles.container}>
-      <h2 style={styles.title}>Products</h2>
+    <div className="container" style={{ padding: '2rem' }}>
+      <h2 style={{ textAlign: 'center', marginBottom: '2rem', color: 'var(--primary)' }}>🛍️ Available Products</h2>
 
-      <div style={styles.cards}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '1.5rem' }}>
         {products.map((p) => (
-          <div key={p._id} style={styles.card}>
-            <h3>{p.name}</h3>
-            <p>₹{p.price}</p>
-            <button onClick={() => addToCart(p)}>
+          <div key={p._id} className="card">
+            <img src={`http://localhost:5000/uploads/${p.image}`} alt={p.name} style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: 'var(--border-radius)', marginBottom: '1rem' }} />
+            <h3 style={{ marginBottom: '0.5rem' }}>{p.name}</h3>
+            <p style={{ fontSize: '1.2rem', fontWeight: 'bold', color: 'var(--primary)', marginBottom: '1rem' }}>₹{p.price}</p>
+            <button className="btn" onClick={() => addToCart(p)}>
               Add to Cart
             </button>
           </div>
@@ -42,23 +44,5 @@ export default function UserProducts() {
 }
 
 const styles = {
-  container: { padding: 20, background: "#ddd", minHeight: "100vh" },
-  title: {
-    background: "#4c78c9",
-    color: "white",
-    padding: 10,
-    textAlign: "center",
-  },
-  cards: {
-    display: "flex",
-    justifyContent: "space-around",
-    marginTop: 40,
-  },
-  card: {
-    background: "#4c78c9",
-    color: "white",
-    padding: 20,
-    borderRadius: 20,
-    textAlign: "center",
-  },
+  // Styles moved to CSS classes and inline styles
 };

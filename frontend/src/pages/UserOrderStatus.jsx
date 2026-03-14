@@ -29,16 +29,18 @@ export default function UserOrderStatus() {
       </div>
 
       <div style={styles.headerRow}>
-        <div>Name</div>
-        <div>E-mail</div>
+        <div>Items</div>
         <div>Address</div>
         <div>Status</div>
       </div>
 
       {orders.map((o) => (
         <div key={o._id} style={styles.row}>
-          <div>{o.customerName || "User"}</div>
-          <div>{o.email || "-"}</div>
+          <div>
+            {o.items.map((item, idx) => (
+              <div key={idx}>{item.name} (₹{item.price}) x{item.quantity}</div>
+            ))}
+          </div>
           <div>{o.address}</div>
           <div>{o.status}</div>
         </div>
@@ -52,7 +54,7 @@ const styles = {
   topBar: { display: "flex", justifyContent: "space-between" },
   headerRow: {
     display: "grid",
-    gridTemplateColumns: "repeat(4, 1fr)",
+    gridTemplateColumns: "2fr 1fr 1fr",
     background: "#4c78c9",
     color: "white",
     padding: 10,
@@ -60,7 +62,7 @@ const styles = {
   },
   row: {
     display: "grid",
-    gridTemplateColumns: "repeat(4, 1fr)",
+    gridTemplateColumns: "2fr 1fr 1fr",
     background: "#7ea0db",
     padding: 10,
     marginTop: 5,

@@ -10,6 +10,7 @@ import VendorDashboard from "./pages/VendorDashboard";
 import VendorAddProduct from "./pages/VendorAddProduct";
 import VendorStatus from "./pages/VendorStatus";
 import VendorRequests from "./pages/VendorRequests";
+import VendorProducts from "./pages/VendorProducts";
 import UserDashboard from "./pages/UserDashboard";
 import UserVendors from "./pages/UserVendors";
 import UserProducts from "./pages/UserProducts";
@@ -37,6 +38,7 @@ export default function App() {
       <Route path="/vendor/add-product" element={<VendorAddProduct />} />
       <Route path="/vendor/status" element={<VendorStatus />} />
       <Route path="/vendor/requests" element={<VendorRequests />} />
+      <Route path="/vendor/products" element={<VendorProducts />} />
       <Route path="/user" element={<UserDashboard />} />
       <Route path="/user/vendors/:category" element={<UserVendors />} />
       <Route path="/user/products/:vendorId" element={<UserProducts />} />
